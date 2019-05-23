@@ -6,4 +6,4 @@ The actual **blog posts** are the markdown (yay!) files in the [\_posts](https:/
 
 It is [deployed](https://hexo.io/docs/deployment) to the [github page](https://pages.github.com/) of this account. 
 
-**Viva el markdown!**
+***Viva el markdown!***
