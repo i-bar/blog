@@ -1,4 +1,4 @@
-# Sources for the [scribbles blog](https://i-bar.github.io/)
+## Sources for the [scribbles blog](https://i-bar.github.io/)
 
 This project was generated (after a whole day of hard work) with [hexo](https://hexo.io/docs/).  
 
