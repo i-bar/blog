@@ -59,3 +59,13 @@ typings/
 
 # next.js build output
 .next
+
+# hexo generated files
+.DS_Store
+Thumbs.db
+db.json
+debug.log
+public/
+.deploy/
+.deploy_git/
+themes/
