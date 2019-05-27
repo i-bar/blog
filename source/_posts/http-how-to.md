@@ -62,7 +62,7 @@ Store the certificates in a secure place (e.g. behind a secret manager like keep
 - inspired from [Let's Encrypt](https://letsencrypt.org/docs/certificates-for-localhost/)
 - the following command will create two files, `localhost.key` and `localhost.crt`:
 
-```
+```bash
  openssl req -x509 -out localhost.crt -keyout localhost.key \
   -newkey rsa:2048 -nodes -sha256 \
   -subj '/CN=localhost' -extensions EXT -config <( \
@@ -78,7 +78,7 @@ Store the certificates in a secure place (e.g. behind a secret manager like keep
 
 **Example** of using the above generated localhost certificate in our server app:
 
-```
+```javascript
 var https = require("https");
 var fs = require("fs");
 
@@ -104,10 +104,10 @@ Just in order to avoid the 404 pages when a user (accidently, not for attacking 
 We would need a middle-layer to intercept all requests, verify if they come via an unencrypted channel and if so, redirect them. That can be echieved in two ways:
 
 - By using an already implemented middle layer.
-  The most popular among the [currently available npm packages](https://www.npmjs.com/search?q=express%20https&ranking=maintenance) that do that is [express-http-to-https](https://www.npmjs.com/package/express-http-to-https):
+  The most popular among the [currently available npm packages](https://www.npmjs.com/search?q=express%20https&ranking=maintenance) seems to be (at least now, in 2019) [express-http-to-https](https://www.npmjs.com/package/express-http-to-https):
 
-  ```
-  var redirectToHTTPS = require("express-http-to-https").redirectToHTTPS;
+  ```javascript
+  var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
   app.use(redirectToHTTPS([], [], 301));
   ```
 
@@ -117,12 +117,12 @@ We would need a middle-layer to intercept all requests, verify if they come via 
 - By manually implementing a middle layer:  
   Because we are using Heroku, we need to verify the `x-forwarded-proto` instead of only the req.secure flag.  
   (see the [Heroku docs](https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls) for more details)
-  ```
+  ```javascript
   app.use(function(req, res, next) {
     // x-forwarded-proto because we are behind a load balancer (heroku, in our case)
-    if (!req.secure && req.get("x-forwarded-proto") !== "https") {
+    if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
       // request was via http, so redirect to https
-      res.redirect("https://" + req.headers.host + req.url);
+      res.redirect('https://' + req.headers.host + req.url);
     } else {
       // request was via https, so do no special handling
       next();
@@ -143,18 +143,18 @@ Even if when deploying to Heroku creating one server is enough and it will be ac
 
 **`Code` sample** for localhost:
 
-```
+```javascript
 const httpsServer = https.createServer(sslOptions, app);
 httpsServer.listen(443, function() {
   console.log(`Listening on port ${httpsServer.address().port}...`);
 });
 
 // Also listen on http and redirect from all to https
-var httpServer = require("http");
+var httpServer = require('http');
 httpServer
   .createServer(function(req, res) {
     res.writeHead(301, {
-      Location: "https://" + req.headers["host"] + req.url,
+      Location: 'https://' + req.headers['host'] + req.url,
     });
     res.end();
   })
@@ -177,8 +177,8 @@ A [nice explanation of HSTS](https://developer.mozilla.org/en-US/docs/Web/HTTP/H
 
 **`Code` sample** using the [helmet npm package](https://github.com/helmetjs/helmet):
 
-```
-var hsts = require("hsts");
+```javascript
+var hsts = require('hsts');
 
 app.use(
   hsts({
