@@ -7,7 +7,13 @@ tags:
   - Node
 ---
 
-There are a lot of sites that help us test the security level of our apps. Below are some steps to make a Node.js app score <span style="color:blue">**A+**</span> on (most of?) them.
+There are a lot of sites that help us test the security level of our apps. SOme examples include:
+
+- [Mozilla observatory](https://observatory.mozilla.org) for an overview of the app security;
+- [SSL Labs](https://www.ssllabs.com) for secure connection checks;
+- [Security Headers](https://securityheaders.com) for secure headers checks.
+
+Below are some steps to make a Node.js app score <span style="color:green">**A+**</span> on (most of?) them:
 
 ### SSL/TLS
 
@@ -55,6 +61,22 @@ app.use(
 
 // Do not set the referer header
 app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
+```
+
+### Secure cookies
+
+- Mark all cookies as `secure`, so that they are only sent via https;
+- Mark all cookies as `httpOnly` so that they cannot be accessed via JavaScript on the client side.
+
+`Node` example with such a cookie:
+
+```javascript
+res
+  .cookie('token', 'some_secret_jwt_maybe', {
+    httpOnly: true,
+    secure: true,
+  })
+  .json('here, take a cookie');
 ```
 
 Happy learning!
