@@ -5,24 +5,25 @@ tags:
   - SSL/TLS
   - HTTPS
   - Node
+  - Headers
 ---
 
-There are a lot of sites that help us test the security level of our apps. SOme examples include:
+There are a lot of sites that help us **test the security level** of our apps. Some examples include:
 
 - [Mozilla observatory](https://observatory.mozilla.org) for an overview of the app security;
 - [SSL Labs](https://www.ssllabs.com) for secure connection checks;
 - [Security Headers](https://securityheaders.com) for secure headers checks.
 
-Below are some steps to make a Node.js app score <span style="color:green">**A+**</span> on (most of?) them:
+Below are some steps to make a Node.js app score <span style="color:green; font-size:24px">**A+**</span> on (most of?) them:
 
-### SSL/TLS
+## SSL/TLS
 
 1. Add support for **https**, if not done automatically by the deployment server.
 2. **Redirect** all http to https.
 
 Please see [this entry](https://i-bar.github.io/2019/05/14/http-how-to/) for `node` instructions.
 
-### Secure Headers
+## Secure Headers
 
 [Helmet](https://helmetjs.github.io/docs/) does a wonderful job with adding the most obvious headers.
 
@@ -63,7 +64,7 @@ app.use(
 app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
 ```
 
-### Secure cookies
+## Secure cookies
 
 - Mark all cookies as `secure`, so that they are only sent via https;
 - Mark all cookies as `httpOnly` so that they cannot be accessed via JavaScript on the client side.
