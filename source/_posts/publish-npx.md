@@ -9,12 +9,12 @@ tags:
 
 The purpose of this entry is to provide very straight-forward steps that should be followed in order to publish an npm executable package (npx).
 
-For demonstration pusposes, we will publish a very basic package that prompts for a user name and greets the user. It would be used like this:
+For demonstration pusposes, we will publish a very basic package, `npm-says-hello`, that prompts for a user name and greets the user. It would be used like this:
 
 ```bash
 ✗ npx npm-says-hello
 npx: installed 1 in 3.068s
-Hey, what's your name?
+Hey, what\'s your name?
 Santa
 hello, Santa
 ```
@@ -23,7 +23,8 @@ hello, Santa
 
 - You should have an **npm account**.  
   If you don't, create one here: https://www.npmjs.com
-- The package can only be published if it has a corresponding git remote repository. This is why it's better to **run all the following commands inside a new, empty repository**. Create a new repository and give it the name you wish to give to the npm package. In our examples, we will use `npm-says-hello` for the package name.
+- The package can only be published if it has a corresponding git remote repository. This is why it's better to **run all the following commands inside a new, empty repository**.  
+  Create a new repository and give it the name you wish to give to the npm package. In our examples, we will use `npm-says-hello` for the package & repository name.
 
 ### Create the npm package
 
@@ -31,7 +32,8 @@ Inside the repository root folder, run the following command:
 `✗ npm init`  
 This will create a `package.json` file. Just accept the defaults.
 
-Congratulations, the package is now ready to be published :). It doesn't do anything but well, here it is. The next "bonus" sections add some functionality to it, but you can also skip to the "publish" section directly.
+Commit and push your changes and congratulations, the package is now ready to be published :).  
+It doesn't do anything but well, here it is. The next "bonus" sections add some functionality to it, but you can also skip to the "publish" section directly.
 
 ### Bonus 1: add some basic functionality
 
@@ -45,7 +47,7 @@ if [ $# -eq 0 ] ; then echo "Hey, what's your name? "; read NAME ; fi
 echo "hello, $NAME"
 ```
 
-To specify that this file will be our main execution entry point, add the following value to the `package.json` file:
+To specify that this file will be our main execution entry point, add the following value to the `package.json` file:  
 `"bin": "sayhello.sh"`
 
 Your `package.json` should now look something like the following:  
@@ -76,7 +78,7 @@ Your `package.json` should now look something like the following:
 
 ### Bonus 2: add a brief description
 
-We can also add a `README.md` file to get a nice package description. Add in again in the project root, i.e. the same location where the package.json was created.  
+We can also add a `README.md` file to get a nice package description. Add it again in the project root (the same location where the package.json was created).  
 We can add a few lines to it:
 
 ```markdown
@@ -118,7 +120,7 @@ To test if it works, we can run `✗ npx npm-says-hello` and we should get the s
 
 The publish command will fail in one of the following cases:
 
-- We haven't logged into npm, case in which all we need to do is run npm login;
+- We haven't logged into npm, case in which all we need to do is run `npm login`;
 - We are not running the command from within a remote repository.
 
 ### Important notice! about removing a package from the npm registry
